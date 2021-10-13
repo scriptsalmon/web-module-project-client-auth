@@ -1,5 +1,5 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 class Login extends React.Component {
     state = {
@@ -19,9 +19,15 @@ class Login extends React.Component {
         })
     }
 
-    handleSubmit = (e) => {
+    handleLogin = (e) => {
         e.preventDefault();
-        console.log("submit");
+        axios.post('http://localhost:5000/api/login', this.state.credentials)
+            .then(res=>{
+                console.log(res);
+            })
+            .catch(err=>{
+                console.error(err);
+            })
     }
 
     render(){
@@ -29,7 +35,7 @@ class Login extends React.Component {
         return(
             <div>
                 <h1>Login</h1>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleLogin}>
                     <input 
                         type='text' 
                         name='username' 
